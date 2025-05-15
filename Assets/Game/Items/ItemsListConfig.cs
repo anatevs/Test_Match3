@@ -7,6 +7,8 @@ namespace GameCore
         menuName = "Configs/Items/ItemConfig")]
     public class ItemsListConfig : ScriptableObject
     {
+        public int MaxId => _items.Length;
+
         public string[] ShapeNames => _shapeNames;
 
         [SerializeField]
@@ -29,18 +31,20 @@ namespace GameCore
                 else
                 {
                     _shapeNames[i] = _items[i].ShapeName;
+
+                    _items[i].SetShapeId(i);
                 }
             }
         }
 
-        public ItemConfig GetItem(string shapeName)
+        public Item GetItem(int shapeId)
         {
-            if (!_itemDictionary.TryGetValue(shapeName, out var item))
-            {
-                Debug.LogWarning($"Item not found: {shapeName}");
-            }
+            return _items[shapeId].GetPrefab();
+        }
 
-            return item;
+        public string GetShapeName(int shapeId)
+        {
+            return _items[shapeId].ShapeName;
         }
     }
 }

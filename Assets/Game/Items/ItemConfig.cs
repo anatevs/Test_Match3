@@ -12,6 +12,16 @@ namespace GameCore
         private string _shapeName;
 
         [SerializeField]
-        private GameObject _prefab;
+        private Item _prefab;
+
+        public void SetShapeId(int id)
+        {
+            _prefab.Init(id);
+        }
+
+        public Item GetPrefab()
+        {
+            return _prefab;
+        }
     }
 }
