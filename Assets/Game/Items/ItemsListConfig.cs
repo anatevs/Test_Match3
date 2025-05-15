@@ -4,7 +4,7 @@ using UnityEngine;
 namespace GameCore
 {
     [CreateAssetMenu(fileName = "ItemsListConfig",
-        menuName = "Configs/Items/ItemConfig")]
+        menuName = "Configs/Items/ItemsListConfig")]
     public class ItemsListConfig : ScriptableObject
     {
         public int MaxId => _items.Length;
