@@ -6,7 +6,7 @@ namespace GameCore
         menuName = "Configs/Items/Avatars")]
     public class AvatarsConfig : ScriptableObject
     {
-        public int MaxId => _avatars.Length;
+        public int IdLength => _avatars.Length;
 
         [SerializeField]
         private Sprite[] _avatars;

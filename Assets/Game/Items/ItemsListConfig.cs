@@ -7,7 +7,7 @@ namespace GameCore
         menuName = "Configs/Items/ItemsListConfig")]
     public class ItemsListConfig : ScriptableObject
     {
-        public int MaxId => _items.Length;
+        public int IdLength => _items.Length;
 
         public string[] ShapeNames => _shapeNames;
 

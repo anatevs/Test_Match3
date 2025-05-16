@@ -6,7 +6,7 @@ namespace GameCore
         menuName = "Configs/Items/Colors")]
     public class ColorsConfig : ScriptableObject
     {
-        public int MaxId => _colors.Length;
+        public int IdLength => _colors.Length;
 
         [SerializeField]
         private Color[] _colors;
