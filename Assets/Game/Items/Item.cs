@@ -7,9 +7,9 @@ namespace GameCore
     [RequireComponent(typeof(Collider2D))]
     public class Item : MonoBehaviour
     {
-        public int Shape => _shape;
-        public int Color => _color;
-        public int Avatar => _avatar;
+        public ItemData IdData => new(_shape, _color, _avatar);
+
+        public ItemView View => _view;
 
         public bool IsPlayable => _isPlayable;
 
@@ -37,13 +37,6 @@ namespace GameCore
         public void Init(int shapeId)
         {
             _shape = shapeId;
-        }
-
-        public bool IsEqual(Item other)
-        {
-            return _shape == other.Shape &&
-                _color == other.Color &&
-                _avatar == other.Avatar;
         }
 
         public void SetColor(int colorId, Color color)
@@ -75,7 +68,7 @@ namespace GameCore
             }
         }
 
-        public void SetGravity(float gravity)
+        public void SetGravityScale(float gravity)
         {
             _rb.gravityScale = gravity;
         }

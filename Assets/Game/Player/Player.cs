@@ -9,6 +9,12 @@ namespace GameCore
         [SerializeField]
         private LayerMask _itemsLayer;
 
+        [SerializeField]
+        private ItemsGenerator _itemsGenerator;
+
+        [SerializeField]
+        private Bar _bar;
+
         private PlayerInputController _playerInput;
 
         private void Awake()
@@ -29,7 +35,11 @@ namespace GameCore
 
             if (collider != null)
             {
-                Debug.Log($"Tap item at {clickPos}");
+                var item = collider.GetComponent<Item>();
+
+                _itemsGenerator.RemoveFromField(item);
+
+                _bar.AddAndUpdate(item);
             }
         }
     }

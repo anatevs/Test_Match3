@@ -63,9 +63,9 @@ namespace GameCore
 
         public void Unspawn(Item item)
         {
-            //disable item
+            item.gameObject.SetActive(false);
 
-            _itemShapeLists[item.Shape].Enqueue(item);
+            _itemShapeLists[item.IdData.ShapeId].Enqueue(item);
         }
     }
 

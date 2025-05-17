@@ -1,4 +1,6 @@
-﻿namespace GameCore
+﻿using System;
+
+namespace GameCore
 {
     public struct ItemData
     {

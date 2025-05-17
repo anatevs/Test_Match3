@@ -16,9 +16,23 @@ namespace GameCore
 
         private readonly int _itemsTypeMultiplier = 3;
 
+        private readonly HashSet<Item> _fieldItemsSet = new();
+
         private void Awake()
         {
             StartCoroutine(GenerateItems(_generationConfig.TypesAmount));
+        }
+
+        public void RemoveFromField(Item item)
+        {
+            if (_fieldItemsSet.Contains(item))
+            {
+                _fieldItemsSet.Remove(item);
+
+                item.SetInteractionActive(false);
+
+                _itemsPool.Unspawn(item);
+            }
         }
 
         private IEnumerator GenerateItems(int typesAmount)
@@ -53,7 +67,9 @@ namespace GameCore
 
                 var rotZ = _generationConfig.ZRot;
 
-                _itemsPool.Spawn(_itemsData[randomIndex], pos, rotZ);
+                var item = _itemsPool.Spawn(_itemsData[randomIndex], pos, rotZ);
+
+                _fieldItemsSet.Add(item);
 
                 _itemsData.RemoveAt(randomIndex);
 
