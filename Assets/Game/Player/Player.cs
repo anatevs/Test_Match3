@@ -45,7 +45,7 @@ namespace GameCore
             _playerInput.OnTapped -= Tap;
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
             _playerInput.OnTapped -= Tap;
         }
