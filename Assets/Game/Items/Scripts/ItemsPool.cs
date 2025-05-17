@@ -19,6 +19,9 @@ namespace GameCore
         [SerializeField]
         private Transform _parent;
 
+        [SerializeField]
+        private Transform _poolParent;
+
         private Queue<Item>[] _itemShapeLists;
 
         private ParamsLength _paramsLength;
@@ -56,7 +59,7 @@ namespace GameCore
 
             item.gameObject.SetActive(true);
 
-            item.SetInteractionActive(true);
+            item.SetPlayableState(true);
 
             return item;
         }
@@ -66,6 +69,8 @@ namespace GameCore
             item.gameObject.SetActive(false);
 
             _itemShapeLists[item.IdData.ShapeId].Enqueue(item);
+
+            item.transform.SetParent(_poolParent);
         }
     }
 

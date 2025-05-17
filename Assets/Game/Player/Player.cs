@@ -17,11 +17,16 @@ namespace GameCore
 
         private PlayerInputController _playerInput;
 
-        private void Awake()
+        public void StartPlay()
         {
             _playerInput = new PlayerInputController();
 
             _playerInput.OnTapped += Tap;
+        }
+
+        public void StopPlay()
+        {
+            _playerInput.OnTapped -= Tap;
         }
 
         private void OnDisable()

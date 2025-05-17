@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace GameCore
@@ -44,15 +45,12 @@ namespace GameCore
             _barPlaces[index].SetActiveView(background, color, avatar);
         }
 
-        public void SetInactiveView(int index)
+        public void ClearView()
         {
-            if (index < 0 || index >= _barPlaces.Length)
+            foreach (var barPlace in _barPlaces)
             {
-                Debug.LogError("Index out of bounds");
-                return;
+                barPlace.SetInactiveView();
             }
-
-            _barPlaces[index].SetInactiveView();
         }
 
         public void ShiftViews(List<int> removeIndexes, List<int[]> shiftInfo, int currentMaxIndex)

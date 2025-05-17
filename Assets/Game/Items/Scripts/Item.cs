@@ -53,7 +53,7 @@ namespace GameCore
             _view.SetAvatar(sprite);
         }
 
-        public void SetInteractionActive(bool isActive)
+        public void SetPlayableState(bool isActive)
         {
             _isPlayable = isActive;
             _collider.enabled = isActive;
@@ -66,11 +66,6 @@ namespace GameCore
             {
                 _rb.bodyType = RigidbodyType2D.Static;
             }
-        }
-
-        public void SetGravityScale(float gravity)
-        {
-            _rb.gravityScale = gravity;
         }
     }
 }

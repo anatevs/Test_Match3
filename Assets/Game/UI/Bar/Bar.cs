@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,6 +6,8 @@ namespace GameCore
 {
     public class Bar : MonoBehaviour
     {
+        public event Action OnBarFull;
+
         [SerializeField]
         private BarView _barView;
 
@@ -25,15 +28,19 @@ namespace GameCore
             _barLength = _barView.BarLength;
         }
 
+        public void ClearBar()
+        {
+            _currentMaxIndex = -1;
+
+            _itemsData.Clear();
+
+            _typeDict.Clear();
+
+            _barView.ClearView();
+        }
+
         public void AddAndUpdate(Item item)
         {
-            if (_currentMaxIndex == _barLength - 1)
-            {
-                Debug.Log("Bar is full");
-
-                return;
-            }
-
             _currentMaxIndex++;
 
             _itemsData.Add(item.IdData);
@@ -98,6 +105,18 @@ namespace GameCore
                 _currentMaxIndex -= _removeOrder;
 
                 _typeDict.Remove(item.IdData);
+            }
+
+            else
+            {
+                if (_currentMaxIndex == _barLength - 1)
+                {
+                    ClearBar();
+
+                    OnBarFull?.Invoke();
+
+                    return;
+                }
             }
         }
     }

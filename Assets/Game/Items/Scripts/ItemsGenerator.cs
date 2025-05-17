@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,6 +7,10 @@ namespace GameCore
 {
     public class ItemsGenerator : MonoBehaviour
     {
+        public event Action OnAllItemsStopped;
+
+        public event Action OnAllItemsUsed;
+
         [SerializeField]
         private ItemsPool _itemsPool;
 
@@ -18,8 +23,19 @@ namespace GameCore
 
         private readonly HashSet<Item> _fieldItemsSet = new();
 
-        private void Awake()
+        private Rigidbody2D _lastRb;
+
+        private readonly float _stopVelocityY = -1e-5f;
+
+        public void Generate()
         {
+            foreach (var item in _fieldItemsSet)
+            {
+                RemoveFromField(item);
+            }
+
+            _fieldItemsSet.Clear();
+
             StartCoroutine(GenerateItems(_generationConfig.TypesAmount));
         }
 
@@ -27,12 +43,19 @@ namespace GameCore
         {
             if (_fieldItemsSet.Contains(item))
             {
-                _fieldItemsSet.Remove(item);
+                //_fieldItemsSet.Remove(item);
 
-                item.SetInteractionActive(false);
+                item.SetPlayableState(false);
 
                 _itemsPool.Unspawn(item);
             }
+
+            if (_fieldItemsSet.Count == 0)
+            {
+                OnAllItemsUsed?.Invoke();
+            }
+
+            //_fieldItemsSet.Clear();
         }
 
         private IEnumerator GenerateItems(int typesAmount)
@@ -44,9 +67,9 @@ namespace GameCore
 
             for (int i = 0; i < typesAmount; i++)
             {
-                int shapeId = Random.Range(0, _itemsPool.ParamsLength.Shape);
-                int colorId = Random.Range(0, _itemsPool.ParamsLength.Color);
-                int avatarId = Random.Range(0, _itemsPool.ParamsLength.Avatar);
+                int shapeId = UnityEngine.Random.Range(0, _itemsPool.ParamsLength.Shape);
+                int colorId = UnityEngine.Random.Range(0, _itemsPool.ParamsLength.Color);
+                int avatarId = UnityEngine.Random.Range(0, _itemsPool.ParamsLength.Avatar);
 
                 for (int j = 0; j < _itemsTypeMultiplier; j++)
                 {
@@ -59,7 +82,7 @@ namespace GameCore
 
             for (int i = 0; i < itemsAmount; i++)
             {
-                int randomIndex = Random.Range(0, _itemsData.Count);
+                int randomIndex = UnityEngine.Random.Range(0, _itemsData.Count);
 
                 var pos = new Vector2(
                     _generationConfig.XPos,
@@ -74,6 +97,24 @@ namespace GameCore
                 _itemsData.RemoveAt(randomIndex);
 
                 yield return new WaitForSeconds(deltaTime);
+
+                if (i == itemsAmount - 1)
+                {
+                    _lastRb = item.GetComponent<Rigidbody2D>();
+                }
+            }
+        }
+
+        private void FixedUpdate()
+        {
+            if (_lastRb != null)
+            {
+                if (_lastRb.velocity.y >= _stopVelocityY)
+                {
+                    OnAllItemsStopped?.Invoke();
+
+                    _lastRb = null;
+                }
             }
         }
     }

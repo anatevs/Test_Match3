@@ -9,15 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6774be069cff48479bfbb096e0cacb6, type: 3}
-  m_Name: GenerationConfig
+  m_Script: {fileID: 11500000, guid: d0c0465e484b9324fbc0da7665d5262d, type: 3}
+  m_Name: ItemConfig_Triangle
   m_EditorClassIdentifier: 
-  _typesAmount: 3
-  _xRangeGen:
-  - -1.3
-  - 1.3
-  _yPos: 5
-  _zRotRange:
-  - 0
-  - 360
-  _timeGen: 2
+  _shapeName: Triangle
+  _prefab: {fileID: 1508207660531933532, guid: 5841f6db66511be4c8ecdbec85bc1433, type: 3}
