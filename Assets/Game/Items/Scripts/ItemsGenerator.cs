@@ -1,15 +1,20 @@
-﻿using System;
+﻿using GameManagement;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace GameCore
 {
-    public class ItemsGenerator : MonoBehaviour
+    public class ItemsGenerator : MonoBehaviour,
+        IStartGameListener
     {
         public event Action OnAllItemsStopped;
 
         public event Action OnAllItemsUsed;
+
+        [SerializeField]
+        private GameManager _gameManager;
 
         [SerializeField]
         private ItemsPool _itemsPool;
@@ -27,11 +32,16 @@ namespace GameCore
 
         private readonly float _stopVelocityY = -1e-5f;
 
+        public void StartGame()
+        {
+            Generate();
+        }
+
         public void Generate()
         {
             foreach (var item in _fieldItemsSet)
             {
-                RemoveFromField(item);
+                DisactivateItem(item);
             }
 
             _fieldItemsSet.Clear();
@@ -43,19 +53,22 @@ namespace GameCore
         {
             if (_fieldItemsSet.Contains(item))
             {
-                //_fieldItemsSet.Remove(item);
+                _fieldItemsSet.Remove(item);
 
-                item.SetPlayableState(false);
-
-                _itemsPool.Unspawn(item);
+                DisactivateItem(item);
             }
 
             if (_fieldItemsSet.Count == 0)
             {
                 OnAllItemsUsed?.Invoke();
             }
+        }
 
-            //_fieldItemsSet.Clear();
+        private void DisactivateItem(Item item)
+        {
+            item.SetPlayableState(false);
+
+            _itemsPool.Unspawn(item);
         }
 
         private IEnumerator GenerateItems(int typesAmount)

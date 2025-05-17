@@ -2,9 +2,12 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System;
+using GameManagement;
 
 namespace GameCore {
-    public class StartMenu : MonoBehaviour
+    public class StartMenu : MonoBehaviour,
+        IWinGameListener,
+        ILoseGameListener
     {
         public event Action OnStartClicked;
 
@@ -20,6 +23,28 @@ namespace GameCore {
         [SerializeField]
         private string _loseTitle = "You Lose!";
 
+
+        private void Awake()
+        {
+            SetEmptyTitle();
+
+            Show();
+        }
+
+        public void WinGame()
+        {
+            SetWinTitle();
+
+            Show();
+        }
+
+        public void LoseGame()
+        {
+            SetLoseTitle();
+
+            Show();
+        }
+
         public void Show()
         {
             gameObject.SetActive(true);
@@ -29,9 +54,9 @@ namespace GameCore {
 
         public void Hide()
         {
-            _startButton.onClick.RemoveListener(OnStartButtonClick);
-
             gameObject.SetActive(false);
+
+            _startButton.onClick.RemoveListener(OnStartButtonClick);
         }
 
         public void SetWinTitle()
@@ -62,6 +87,8 @@ namespace GameCore {
         private void OnStartButtonClick()
         {
             OnStartClicked?.Invoke();
+
+            Hide();
         }
     }
 }

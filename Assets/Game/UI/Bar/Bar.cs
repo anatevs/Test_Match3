@@ -1,10 +1,15 @@
+using GameManagement;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace GameCore
 {
-    public class Bar : MonoBehaviour
+    public class Bar : MonoBehaviour,
+        IStartGameListener,
+        IPlayGameListener,
+        IWinGameListener,
+        ILoseGameListener
     {
         public event Action OnBarFull;
 
@@ -26,6 +31,25 @@ namespace GameCore
         private void Awake()
         {
             _barLength = _barView.BarLength;
+        }
+
+        public void StartGame()
+        {
+            gameObject.SetActive(false);
+        }
+
+        public void PlayGame()
+        {
+            gameObject.SetActive(true);
+        }
+
+        public void WinGame()
+        {
+            gameObject.SetActive(false);
+        }
+        public void LoseGame()
+        {
+            gameObject.SetActive(false);
         }
 
         public void ClearBar()
@@ -119,5 +143,7 @@ namespace GameCore
                 }
             }
         }
+
+        
     }
 }

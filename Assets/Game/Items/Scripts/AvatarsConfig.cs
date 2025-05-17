@@ -15,10 +15,5 @@ namespace GameCore
         {
             return _avatars[id];
         }
-
-        public string GetAvatarName(int id)
-        {
-            return _avatars[id].name;
-        }
     }
 }

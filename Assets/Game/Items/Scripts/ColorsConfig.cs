@@ -15,10 +15,5 @@ namespace GameCore
         {
             return _colors[id];
         }
-
-        public string GetColorName(int id)
-        {
-            return _colors[id].ToString();
-        }
     }
 }

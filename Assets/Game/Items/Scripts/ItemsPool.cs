@@ -47,6 +47,8 @@ namespace GameCore
                 item = Instantiate(_itemsListConfig.GetItem(itemData.ShapeId));
             }
 
+            item.Init(itemData.ShapeId);
+
             item.SetColor(itemData.ColorId, _colorsConfig.GetColor(itemData.ColorId));
 
             item.SetAvatar(itemData.AvatarId, _avatarsConfig.GetAvatar(itemData.AvatarId));

@@ -188,7 +188,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: You are win!
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1308,6 +1308,8 @@ GameObject:
   m_Component:
   - component: {fileID: 639661611}
   - component: {fileID: 639661610}
+  - component: {fileID: 639661613}
+  - component: {fileID: 639661612}
   m_Layer: 0
   m_Name: Game
   m_TagString: Untagged
@@ -1327,6 +1329,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9019560ab99997e4a84f06149d48dfa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _listenersManager: {fileID: 639661613}
   _itemsGenerator: {fileID: 1746222714}
   _player: {fileID: 2005659401}
   _bar: {fileID: 999138506}
@@ -1349,6 +1352,31 @@ Transform:
   - {fileID: 1746222715}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &639661612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 639661609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f920cef8751bd4408a19911b1c0de03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _listenersManager: {fileID: 639661613}
+--- !u!114 &639661613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 639661609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b49751f47858e64fa229e669be9b4d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &887431023
 GameObject:
   m_ObjectHideFlags: 0
@@ -2369,6 +2397,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4749a98fd0261bb429d495db33626487, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gameManager: {fileID: 639661610}
   _itemsPool: {fileID: 1746222716}
   _generationConfig: {fileID: 11400000, guid: ccff85933b07ccd46b15c22083bc1dde, type: 2}
 --- !u!4 &1746222715

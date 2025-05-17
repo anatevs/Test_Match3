@@ -11,8 +11,6 @@ namespace GameCore
 
         public ItemView View => _view;
 
-        public bool IsPlayable => _isPlayable;
-
         [SerializeField]
         private ItemView _view;
 
@@ -21,8 +19,6 @@ namespace GameCore
         private int _color;
 
         private int _avatar;
-
-        private bool _isPlayable;
 
         private Rigidbody2D _rb;
 
@@ -55,7 +51,6 @@ namespace GameCore
 
         public void SetPlayableState(bool isActive)
         {
-            _isPlayable = isActive;
             _collider.enabled = isActive;
 
             if (isActive)

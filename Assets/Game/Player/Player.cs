@@ -1,10 +1,12 @@
-﻿using System;
-using System.Collections;
+﻿using GameManagement;
 using UnityEngine;
 
 namespace GameCore
 {
-    public class Player : MonoBehaviour
+    public class Player : MonoBehaviour,
+        IPlayGameListener,
+        IWinGameListener,
+        ILoseGameListener
     {
         [SerializeField]
         private LayerMask _itemsLayer;
@@ -16,6 +18,20 @@ namespace GameCore
         private Bar _bar;
 
         private PlayerInputController _playerInput;
+
+        public void PlayGame()
+        {
+            StartPlay();
+        }
+
+        public void WinGame()
+        {
+            StopPlay();
+        }
+        public void LoseGame()
+        {
+            StopPlay();
+        }
 
         public void StartPlay()
         {
@@ -47,5 +63,7 @@ namespace GameCore
                 _bar.AddAndUpdate(item);
             }
         }
+
+        
     }
 }
