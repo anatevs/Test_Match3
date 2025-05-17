@@ -35,6 +35,8 @@ namespace GameCore
 
         public void StartGame()
         {
+            ClearBar();
+
             gameObject.SetActive(false);
         }
 

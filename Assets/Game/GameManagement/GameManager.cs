@@ -20,6 +20,9 @@ namespace GameCore
         [SerializeField]
         private StartMenu _startMenu;
 
+        [SerializeField]
+        private ResetUI _resetUI;
+
         private void Start()
         {
             _startMenu.OnStartClicked += _listenersManager.OnStartGame;
@@ -29,6 +32,8 @@ namespace GameCore
             _itemsGenerator.OnAllItemsUsed += _listenersManager.OnWinGame;
 
             _bar.OnBarFull += _listenersManager.OnLoseGame;
+
+            _resetUI.OnResetClicked += _listenersManager.OnStartGame;
         }
 
         private void OnDisable()
@@ -40,6 +45,8 @@ namespace GameCore
             _itemsGenerator.OnAllItemsUsed -= _listenersManager.OnWinGame;
 
             _bar.OnBarFull -= _listenersManager.OnLoseGame;
+
+            _resetUI.OnResetClicked -= _listenersManager.OnStartGame;
         }
     }
 }
